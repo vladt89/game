@@ -85,8 +85,11 @@
 	</target>
 
 	<target name="all"
-		depends="clean,package"
+		depends="clean,package,unit-test"
 		description="build all">
+		<!--<junit>-->
+			<!--<test name="com.nosto.fun.game1.player.DefenceServiceImplTest"/>-->
+		<!--</junit>-->
 	</target>
 	
 	<target name="javadoc" depends="compile" description="make the javadocs">
@@ -99,4 +102,21 @@
 	     version="true"
 	     windowtitle="Nosto Fun Game1"/>
     </target>
+
+	<!--doesn't work yet-->
+	<target name="unit-test" >
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath>
+				<pathelement location="${src}"/>
+				<pathelement location="${src}"/>
+				<pathelement path="${java.class.path}"/>
+			</classpath>
+
+			<test name="com.nosto.fun.game1.player.DefenceServiceImplTest"
+				  haltonfailure="no" outfile="result">
+				<formatter type="plain"/>
+				<formatter type="xml"/>
+			</test>
+		</junit>
+	</target>
 </project>

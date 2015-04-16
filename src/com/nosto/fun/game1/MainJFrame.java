@@ -6,6 +6,7 @@
 
 package com.nosto.fun.game1;
 
+import com.nosto.fun.game1.player.StrongOpponent;
 import com.nosto.fun.game1.player.WeakOpponent;
 
 import java.awt.BorderLayout;
@@ -31,9 +32,10 @@ public class MainJFrame extends javax.swing.JFrame {
         //----------------------------------------------
         //  Add your algorithms here!
         //---------------------------------------------
-        algorithms.addElement(new RandomOpponent("LotteryJohnny"));
-        algorithms.addElement(new WeakOpponent("Vladimir"));
+        algorithms.addElement(new StrongOpponent("Defender"));
+        algorithms.addElement(new WeakOpponent("Attacker"));
         algorithms.addElement(new RandomOpponent("LuckyJack"));
+        algorithms.addElement(new RandomOpponent("LotteryJohnny"));
 
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(algorithms));

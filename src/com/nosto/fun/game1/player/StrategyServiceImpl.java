@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author vladimir.tikhomirov
  */
-public class StrategyServiceImpl implements StrategyService {
+public class StrategyServiceImpl extends RandomServiceImpl implements StrategyService {
 
     @Override
     public ArenaPosition chooseWeakAttackingMove(List<ArenaPosition> currentPlayerMoveList, Piece[][] board) {
@@ -48,16 +48,6 @@ public class StrategyServiceImpl implements StrategyService {
         }
 
         return findRandomFreePlace(board);
-    }
-
-    private ArenaPosition findRandomFreePlace(Piece[][] board) {
-        while (true) {
-            int x = (int) (Math.random() * board.length);
-            int y = (int) (Math.random() * board.length);
-            if (board[x][y] == null) {
-                return new ArenaPosition(x, y);
-            }
-        }
     }
 
     private boolean chooseColumn(Piece[][] board, int lastMoveRow, int columnToMoveTo) {
