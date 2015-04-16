@@ -14,13 +14,13 @@ import java.util.List;
  *
  * @author vladimir.tikhomirov
  */
-public class StrongOpponent implements Player, Cloneable {
+public class WeakOpponent implements Player, Cloneable {
     private Piece myPiece;
     private String name;
     private List<ArenaPosition> myMoveQueue = new LinkedList<ArenaPosition>();
     private StrategyService strategyService = new StrategyServiceImpl();
 
-    public StrongOpponent(String name) {
+    public WeakOpponent(String name) {
         this.name = name;
     }
 
@@ -41,14 +41,9 @@ public class StrongOpponent implements Player, Cloneable {
     }
 
     public ArenaPosition move(Piece[][] board, ArenaPosition lastPosition) {
-        final int column = lastPosition.getColumn();
-        final int row = lastPosition.getRow();
-        final ArenaPosition arenaPosition = new ArenaPosition(row + 1, column + 1);
-
-
-        final ArenaPosition arenaPosition1 = strategyService.chooseGoodAttackingMove(myMoveQueue, board, myPiece);
-        myMoveQueue.add(arenaPosition1);
-        return arenaPosition1;
+        final ArenaPosition arenaPosition = strategyService.chooseWeakAttackingMove(myMoveQueue, board);
+        myMoveQueue.add(arenaPosition);
+        return arenaPosition;
     }
 
     public String toString() {

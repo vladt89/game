@@ -10,5 +10,12 @@ import java.util.List;
  */
 public interface StrategyService {
 
-    ArenaPosition chooseGoodAttackingMove(List<ArenaPosition> currentPlayerMoveList, Piece[][] board, Piece myPiece);
+    /**
+     * Searches for a simple good position to continue winning.
+     *
+     * @param currentPlayerMoveList list of the positions which were made by {@link WeakOpponent}.
+     * @param board current situation of the game
+     * @return position where to put the new piece
+     */
+    ArenaPosition chooseWeakAttackingMove(List<ArenaPosition> currentPlayerMoveList, Piece[][] board);
 }

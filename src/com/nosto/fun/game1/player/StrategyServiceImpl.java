@@ -11,36 +11,70 @@ import java.util.List;
 public class StrategyServiceImpl implements StrategyService {
 
     @Override
-    public ArenaPosition chooseGoodAttackingMove(List<ArenaPosition> currentPlayerMoveList, Piece[][] board, Piece myPiece) {
+    public ArenaPosition chooseWeakAttackingMove(List<ArenaPosition> currentPlayerMoveList, Piece[][] board) {
 
         final ArenaPosition currentPlayerLastMove;
-        if (!currentPlayerMoveList.isEmpty()) {
+        final int length = board.length;
+
+        if (currentPlayerMoveList.isEmpty()) {
+            final int boardCenter = length / 2;
+            final ArenaPosition arenaPosition = new ArenaPosition(boardCenter, boardCenter);
+            return board[boardCenter][boardCenter] == null ? arenaPosition : findRandomFreePlace(board);
+        } else {
             currentPlayerLastMove = currentPlayerMoveList.get(currentPlayerMoveList.size() - 1);
 
             final int lastMoveRow = currentPlayerLastMove.getRow();
             final int lastMoveColumn = currentPlayerLastMove.getColumn();
 
             final int moveDown = lastMoveRow + 1;
-            if (moveDown < board.length) {
-                if (board[moveDown][lastMoveColumn] == null) {
-                    return new ArenaPosition(moveDown, lastMoveColumn);
-                }
+            if (chooseRow(board, lastMoveColumn, moveDown)) {
+                return new ArenaPosition(moveDown, lastMoveColumn);
             }
 
             final int moveRight = lastMoveColumn + 1;
-            if (moveRight < board.length) {
-                if (board[lastMoveRow][moveRight] == null) {
-                    return new ArenaPosition(lastMoveRow, moveRight);
-                }
+            if (chooseColumn(board, lastMoveRow, moveRight)) {
+                return new ArenaPosition(lastMoveRow, moveRight);
             }
 
-        } else {
-            final int boardCenter = board.length / 2;
-            return new ArenaPosition(boardCenter, boardCenter);
+            final int moveUp = lastMoveRow - 1;
+            if (chooseRow(board, lastMoveColumn, moveUp)) {
+                return new ArenaPosition(moveUp, lastMoveColumn);
+            }
+
+            final int moveLeft = lastMoveColumn - 1;
+            if (chooseColumn(board, lastMoveRow, moveLeft)) {
+                return new ArenaPosition(lastMoveRow, moveLeft);
+            }
         }
 
+        return findRandomFreePlace(board);
+    }
 
+    private ArenaPosition findRandomFreePlace(Piece[][] board) {
+        while (true) {
+            int x = (int) (Math.random() * board.length);
+            int y = (int) (Math.random() * board.length);
+            if (board[x][y] == null) {
+                return new ArenaPosition(x, y);
+            }
+        }
+    }
 
-        return null;
+    private boolean chooseColumn(Piece[][] board, int lastMoveRow, int columnToMoveTo) {
+        if (columnToMoveTo < board.length) {
+            if (board[lastMoveRow][columnToMoveTo] == null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean chooseRow(Piece[][] board, int lastMoveColumn, int rowToMoveTo) {
+        if (rowToMoveTo < board.length) {
+            if (board[rowToMoveTo][lastMoveColumn] == null) {
+                return true;
+            }
+        }
+        return false;
     }
 }
