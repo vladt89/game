@@ -1,4 +1,8 @@
-package com.nosto.fun.game1;
+package com.nosto.fun.game1.player;
+
+import com.nosto.fun.game1.ArenaPosition;
+import com.nosto.fun.game1.Piece;
+import com.nosto.fun.game1.Player;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +18,7 @@ public class StrongOpponent implements Player, Cloneable {
     private Piece myPiece;
     private String name;
     private List<ArenaPosition> myMoveQueue = new LinkedList<ArenaPosition>();
+    private StrategyService strategyService = new StrategyServiceImpl();
 
     public StrongOpponent(String name) {
         this.name = name;
@@ -39,8 +44,11 @@ public class StrongOpponent implements Player, Cloneable {
         final int column = lastPosition.getColumn();
         final int row = lastPosition.getRow();
         final ArenaPosition arenaPosition = new ArenaPosition(row + 1, column + 1);
-        myMoveQueue.add(arenaPosition);
-        return arenaPosition;
+
+
+        final ArenaPosition arenaPosition1 = strategyService.chooseGoodAttackingMove(myMoveQueue, board, myPiece);
+        myMoveQueue.add(arenaPosition1);
+        return arenaPosition1;
     }
 
     public String toString() {
