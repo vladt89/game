@@ -30,8 +30,8 @@ public class MainJFrame extends javax.swing.JFrame {
         //  Add your algorithms here!
         //---------------------------------------------
         algorithms.addElement(new RandomOpponent("LotteryJohnny"));     
-        algorithms.addElement(new RandomOpponent("LuckyJack"));  
-        
+        algorithms.addElement(new RandomOpponent("LuckyJack"));
+        algorithms.addElement(new StrongOpponent("Vladimir"));
 
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(algorithms));
