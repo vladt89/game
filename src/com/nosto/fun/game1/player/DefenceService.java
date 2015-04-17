@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface DefenceService {
 
-    ArenaPosition defend(List<ArenaPosition> myMoveQueue, Piece[][] board, Piece myPiece);
+    ArenaPosition defendRows(List<ArenaPosition> myMoveQueue, Piece[][] board, Piece myPiece);
 }
