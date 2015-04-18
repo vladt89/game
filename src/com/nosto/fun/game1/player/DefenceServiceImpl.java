@@ -42,22 +42,8 @@ public class DefenceServiceImpl extends RandomServiceImpl implements DefenceServ
 
     @Override
     public ArenaPosition defendRows(List<ArenaPosition> currentPlayerMoveList, Piece[][] board, Piece myPiece) {
-
         int length = board.length;
-        Piece opponentPiece = myPiece == Piece.CROSS ? Piece.ROUND : Piece.CROSS;
-
-        List<Piece> openThree = opponentPiece == Piece.ROUND ? OPEN_THREE_ROUND_LIST : OPEN_THREE_CROSS_LIST;
-        List<Piece> openRightFour = opponentPiece == Piece.ROUND ? OPEN_RIGHT_FOUR_ROUND_LIST : OPEN_RIGHT_FOUR_CROSS_LIST;
-        List<Piece> openLeftFour = opponentPiece == Piece.ROUND ? OPEN_LEFT_FOUR_ROUND_LIST : OPEN_LEFT_FOUR_CROSS_LIST;
-        List<Piece> openLeftMiddle = opponentPiece == Piece.ROUND ? OPEN_LEFT_MIDDLE_ROUND_LIST : OPEN_LEFT_MIDDLE_CROSS_LIST;
-
-        Set<List<Piece>> libraryOfBadCases = new HashSet<List<Piece>>();
-        libraryOfBadCases.add(openThree);
-        libraryOfBadCases.add(openRightFour);
-        libraryOfBadCases.add(openLeftFour);
-        libraryOfBadCases.add(openLeftMiddle);
-
-        for (List<Piece> badCase : libraryOfBadCases) {
+        for (List<Piece> badCase : createLibraryOfBadCases(myPiece)) {
             for (int row = 0; row < length; row++) {
                 Piece[] rowValues = board[row];
                 final ArenaPosition defendAction = findListInRow(length, badCase, row, rowValues);
@@ -65,6 +51,23 @@ public class DefenceServiceImpl extends RandomServiceImpl implements DefenceServ
             }
         }
         return findRandomFreePlace(board);
+    }
+
+    private Set<List<Piece>> createLibraryOfBadCases(Piece myPiece) {
+        Piece opponentPiece = myPiece == Piece.CROSS ? Piece.ROUND : Piece.CROSS;
+        Set<List<Piece>> libraryOfBadCases = new HashSet<List<Piece>>();
+        if (opponentPiece == Piece.ROUND) {
+            libraryOfBadCases.add(OPEN_THREE_ROUND_LIST);
+            libraryOfBadCases.add(OPEN_RIGHT_FOUR_ROUND_LIST);
+            libraryOfBadCases.add(OPEN_LEFT_FOUR_ROUND_LIST);
+            libraryOfBadCases.add(OPEN_LEFT_MIDDLE_ROUND_LIST);
+        } else {
+            libraryOfBadCases.add(OPEN_THREE_CROSS_LIST);
+            libraryOfBadCases.add(OPEN_RIGHT_FOUR_CROSS_LIST);
+            libraryOfBadCases.add(OPEN_LEFT_FOUR_CROSS_LIST);
+            libraryOfBadCases.add(OPEN_LEFT_MIDDLE_CROSS_LIST);
+        }
+        return libraryOfBadCases;
     }
 
     private ArenaPosition findListInRow(int length, List<Piece> listToSearchFor, int row, Piece[] rowValues) {
