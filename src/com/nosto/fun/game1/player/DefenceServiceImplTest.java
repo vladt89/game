@@ -22,18 +22,18 @@ public class DefenceServiceImplTest {
         //SETUP SUT
         final int rowWithOpenThree = 5;
         Piece[][] board = new Piece[10][10];
-        board[rowWithOpenThree][0] = null;
+        board[rowWithOpenThree][0] = null; //place to defend
         board[rowWithOpenThree][1] = Piece.ROUND;
         board[rowWithOpenThree][2] = Piece.ROUND;
         board[rowWithOpenThree][3] = Piece.ROUND;
-        board[rowWithOpenThree][4] = null; //place to defend
+        board[rowWithOpenThree][4] = null;
 
         //EXERCISE
         final ArenaPosition defendAction = defenceService.defendRows(null, board, Piece.CROSS);
 
         //VERIFY
         Assert.assertEquals(rowWithOpenThree, defendAction.getRow());
-        Assert.assertEquals(4, defendAction.getColumn());
+        Assert.assertEquals(0, defendAction.getColumn());
     }
 
     /**

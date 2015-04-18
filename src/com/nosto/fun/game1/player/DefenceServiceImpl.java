@@ -72,12 +72,21 @@ public class DefenceServiceImpl extends RandomServiceImpl implements DefenceServ
         Collections.addAll(values, rowValues);
 
         final int size = listToSearchFor.size();
-        for (int i = 0; i < length - size; i++) {
+        for (int i = 0; i < length - size + 1; i++) {
             final int toIndex = i + size;
             final List<Piece> subList = values.subList(i, toIndex);
             if (listToSearchFor.equals(subList)) {
+                final Integer freePlaceIndex = findFreePlace(subList);
+                return new ArenaPosition(row, i + freePlaceIndex); //always defend from the right
+            }
+        }
+        return null;
+    }
 
-                return new ArenaPosition(row, toIndex - 1); //always defend from the right
+    private Integer findFreePlace(List<Piece> list) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) == null) {
+                return i;
             }
         }
         return null;

@@ -41,17 +41,17 @@ public class StrategyServiceImpl extends RandomServiceImpl implements StrategySe
 //                return new ArenaPosition(moveUp, lastMoveColumn);
 //            }
 //
-//            final int moveLeft = lastMoveColumn - 1;
-//            if (chooseColumn(board, lastMoveRow, moveLeft)) {
-//                return new ArenaPosition(lastMoveRow, moveLeft);
-//            }
+            final int moveLeft = lastMoveColumn - 1;
+            if (chooseColumn(board, lastMoveRow, moveLeft)) {
+                return new ArenaPosition(lastMoveRow, moveLeft);
+            }
         }
 
         return findRandomFreePlace(board);
     }
 
     private boolean chooseColumn(Piece[][] board, int lastMoveRow, int columnToMoveTo) {
-        if (columnToMoveTo < board.length) {
+        if (columnToMoveTo < board.length && columnToMoveTo >= 0) {
             if (board[lastMoveRow][columnToMoveTo] == null) {
                 return true;
             }
@@ -60,7 +60,7 @@ public class StrategyServiceImpl extends RandomServiceImpl implements StrategySe
     }
 
     private boolean chooseRow(Piece[][] board, int lastMoveColumn, int rowToMoveTo) {
-        if (rowToMoveTo < board.length) {
+        if (rowToMoveTo < board.length && rowToMoveTo >= 0) {
             if (board[rowToMoveTo][lastMoveColumn] == null) {
                 return true;
             }
