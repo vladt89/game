@@ -41,9 +41,15 @@ public class StrongOpponent implements Player, Cloneable {
     }
 
     public ArenaPosition move(Piece[][] board, ArenaPosition lastPosition) {
-        final ArenaPosition arenaPosition = defenceService.defendRows(myMoveQueue, board, myPiece);
-        myMoveQueue.add(arenaPosition);
-        return arenaPosition;
+        final ArenaPosition arenaPosition;
+        arenaPosition = defenceService.defendRows(myMoveQueue, board, myPiece);
+        if (arenaPosition != null) {
+            return arenaPosition;
+        }
+        final ArenaPosition arenaPosition1;
+        arenaPosition1 = defenceService.defendColumns(myMoveQueue, board, myPiece);
+        myMoveQueue.add(arenaPosition1);
+        return arenaPosition1;
     }
 
     public String toString() {

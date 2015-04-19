@@ -26,21 +26,21 @@ public class StrategyServiceImpl extends RandomServiceImpl implements StrategySe
             final int lastMoveRow = currentPlayerLastMove.getRow();
             final int lastMoveColumn = currentPlayerLastMove.getColumn();
 
-//            final int moveDown = lastMoveRow + 1;
-//            if (chooseRow(board, lastMoveColumn, moveDown)) {
-//                return new ArenaPosition(moveDown, lastMoveColumn);
-//            }
+            final int moveDown = lastMoveRow + 1;
+            if (chooseRow(board, lastMoveColumn, moveDown)) {
+                return new ArenaPosition(moveDown, lastMoveColumn);
+            }
 
             final int moveRight = lastMoveColumn + 1;
             if (chooseColumn(board, lastMoveRow, moveRight)) {
                 return new ArenaPosition(lastMoveRow, moveRight);
             }
 
-//            final int moveUp = lastMoveRow - 1;
-//            if (chooseRow(board, lastMoveColumn, moveUp)) {
-//                return new ArenaPosition(moveUp, lastMoveColumn);
-//            }
-//
+            final int moveUp = lastMoveRow - 1;
+            if (chooseRow(board, lastMoveColumn, moveUp)) {
+                return new ArenaPosition(moveUp, lastMoveColumn);
+            }
+
             final int moveLeft = lastMoveColumn - 1;
             if (chooseColumn(board, lastMoveRow, moveLeft)) {
                 return new ArenaPosition(lastMoveRow, moveLeft);

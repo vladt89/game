@@ -47,7 +47,27 @@ public class DefenceServiceImpl extends RandomServiceImpl implements DefenceServ
             for (int row = 0; row < length; row++) {
                 Piece[] rowValues = board[row];
                 final ArenaPosition defendAction = findListInRow(length, badCase, row, rowValues);
-                if (defendAction != null) return defendAction;
+                if (defendAction != null) {
+                    return defendAction;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public ArenaPosition defendColumns(List<ArenaPosition> myMoveQueue, Piece[][] board, Piece myPiece) {
+        int length = board.length;
+        for (List<Piece> badCase : createLibraryOfBadCases(myPiece)) {
+            for (int column = 0; column < length; column++) {
+                Piece[] columnValues = new Piece[length];
+                for (int row = 0; row < length; row++) {
+                    columnValues[row] = board[row][column];
+                }
+                final ArenaPosition defendAction = findListInColumn(length, badCase, column, columnValues);
+                if (defendAction != null) {
+                    return defendAction;
+                }
             }
         }
         return findRandomFreePlace(board);
@@ -80,7 +100,24 @@ public class DefenceServiceImpl extends RandomServiceImpl implements DefenceServ
             final List<Piece> subList = values.subList(i, toIndex);
             if (listToSearchFor.equals(subList)) {
                 final Integer freePlaceIndex = findFreePlace(subList);
-                return new ArenaPosition(row, i + freePlaceIndex); //always defend from the right
+                    return new ArenaPosition(row, i + freePlaceIndex); //always defend from the right
+            }
+        }
+        return null;
+    }
+
+    // TODO merge this method with #findListInRow
+    private ArenaPosition findListInColumn(int length, List<Piece> listToSearchFor, int column, Piece[] rowValues) {
+        List<Piece> values = new ArrayList<Piece>(length);
+        Collections.addAll(values, rowValues);
+
+        final int size = listToSearchFor.size();
+        for (int i = 0; i < length - size + 1; i++) {
+            final int toIndex = i + size;
+            final List<Piece> subList = values.subList(i, toIndex);
+            if (listToSearchFor.equals(subList)) {
+                final Integer freePlaceIndex = findFreePlace(subList);
+                return new ArenaPosition(i + freePlaceIndex, column); //always defend from the right
             }
         }
         return null;
