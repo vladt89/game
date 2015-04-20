@@ -19,6 +19,7 @@ public class StrongOpponent implements Player, Cloneable {
     private String name;
     private List<ArenaPosition> myMoveQueue = new LinkedList<ArenaPosition>();
     private DefenceService defenceService = new DefenceServiceImpl();
+    private StrategyService strategyService = new StrategyServiceImpl();
 
     public StrongOpponent(String name) {
         this.name = name;
@@ -41,15 +42,20 @@ public class StrongOpponent implements Player, Cloneable {
     }
 
     public ArenaPosition move(Piece[][] board, ArenaPosition lastPosition) {
-        final ArenaPosition arenaPosition;
-        arenaPosition = defenceService.defendRows(myMoveQueue, board, myPiece);
+        final ArenaPosition arenaPosition = defenceService.defendRows(board, myPiece);
         if (arenaPosition != null) {
+            myMoveQueue.add(arenaPosition);
             return arenaPosition;
         }
-        final ArenaPosition arenaPosition1;
-        arenaPosition1 = defenceService.defendColumns(myMoveQueue, board, myPiece);
-        myMoveQueue.add(arenaPosition1);
-        return arenaPosition1;
+        final ArenaPosition arenaPosition1 = defenceService.defendColumns(board, myPiece);
+        if (arenaPosition1 != null) {
+            myMoveQueue.add(arenaPosition1);
+            return arenaPosition1;
+        }
+
+        final ArenaPosition arenaPosition2 = strategyService.chooseWeakAttackingMove(myMoveQueue, board);
+        myMoveQueue.add(arenaPosition2);
+        return arenaPosition2;
     }
 
     public String toString() {

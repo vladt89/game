@@ -85,7 +85,7 @@
 	</target>
 
 	<target name="all"
-		depends="clean,package,unit-test"
+		depends="clean,package"
 		description="build all">
 		<!--<junit>-->
 			<!--<test name="com.nosto.fun.game1.Vladimirir.DefenceServiceImplTest"/>-->
@@ -102,21 +102,4 @@
 	     version="true"
 	     windowtitle="Nosto Fun Game1"/>
     </target>
-
-	<!--doesn't work yet-->
-	<target name="unit-test" >
-		<junit printsummary="yes" haltonfailure="yes">
-			<classpath>
-				<pathelement location="${src}"/>
-				<pathelement location="${src}"/>
-				<pathelement path="${java.class.path}"/>
-			</classpath>
-
-			<test name="com.nosto.fun.game1.Vladimir.DefenceServiceImplTest"
-				  haltonfailure="no" outfile="result">
-				<formatter type="plain"/>
-				<formatter type="xml"/>
-			</test>
-		</junit>
-	</target>
 </project>

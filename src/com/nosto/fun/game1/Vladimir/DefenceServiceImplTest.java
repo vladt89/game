@@ -5,8 +5,6 @@ import com.nosto.fun.game1.Piece;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.List;
-
 /**
  * @author vladimir.tikhomirov
  */
@@ -15,7 +13,7 @@ public class DefenceServiceImplTest {
     DefenceService defenceService = new DefenceServiceImpl();
 
     /**
-     * Tests {@link DefenceService#defendRows(List, Piece[][], Piece)} when the opponent has "open three" in some row.
+     * Tests {@link DefenceService#defendRows(Piece[][], Piece)} when the opponent has "open three" in some row.
      */
     @Test
     public void testDefendRowsWithOpenThree() throws Exception {
@@ -29,7 +27,7 @@ public class DefenceServiceImplTest {
         board[rowWithOpenThree][4] = null;
 
         //EXERCISE
-        final ArenaPosition defendAction = defenceService.defendRows(null, board, Piece.CROSS);
+        final ArenaPosition defendAction = defenceService.defendRows(board, Piece.CROSS);
 
         //VERIFY
         Assert.assertEquals(rowWithOpenThree, defendAction.getRow());
@@ -37,7 +35,7 @@ public class DefenceServiceImplTest {
     }
 
     /**
-     * Tests {@link DefenceService#defendRows(List, Piece[][], Piece)} when the opponent has "open right four" in some row.
+     * Tests {@link DefenceService#defendRows(Piece[][], Piece)} when the opponent has "open right four" in some row.
      */
     @Test
     public void testDefendRowsWithOpenRightFour() throws Exception {
@@ -51,7 +49,7 @@ public class DefenceServiceImplTest {
         board[rowWithOpenRightFour][4] = null; //place to defend
 
         //EXERCISE
-        final ArenaPosition defendAction = defenceService.defendRows(null, board, Piece.ROUND);
+        final ArenaPosition defendAction = defenceService.defendRows(board, Piece.ROUND);
 
         //VERIFY
         Assert.assertEquals(rowWithOpenRightFour, defendAction.getRow());
@@ -59,7 +57,7 @@ public class DefenceServiceImplTest {
     }
 
     /**
-     * Tests {@link DefenceService#defendRows(List, Piece[][], Piece)} when the opponent has "open left four" in some row.
+     * Tests {@link DefenceService#defendRows(Piece[][], Piece)} when the opponent has "open left four" in some row.
      */
     @Test
     public void testDefendRowsWithOpenLeftFour() throws Exception {
@@ -73,7 +71,7 @@ public class DefenceServiceImplTest {
         board[rowWithOpenLeftFour][9] = Piece.CROSS;
 
         //EXERCISE
-        final ArenaPosition defendAction = defenceService.defendRows(null, board, Piece.ROUND);
+        final ArenaPosition defendAction = defenceService.defendRows(board, Piece.ROUND);
 
         //VERIFY
         Assert.assertEquals(rowWithOpenLeftFour, defendAction.getRow());
@@ -81,7 +79,7 @@ public class DefenceServiceImplTest {
     }
 
     /**
-     * Tests {@link DefenceService#defendRows(List, Piece[][], Piece)} when the opponent has "open right four" in some column.
+     * Tests {@link DefenceService#defendRows(Piece[][], Piece)} when the opponent has "open right four" in some column.
      */
     @Test
     public void testDefendColumnsWithOpenRightFour() throws Exception {
@@ -95,7 +93,7 @@ public class DefenceServiceImplTest {
         board[9][columnWithOpenRightFour] = Piece.CROSS;
 
         //EXERCISE
-        final ArenaPosition defendAction = defenceService.defendColumns(null, board, Piece.ROUND);
+        final ArenaPosition defendAction = defenceService.defendColumns(board, Piece.ROUND);
 
         //VERIFY
         Assert.assertEquals(5, defendAction.getRow());
@@ -103,7 +101,7 @@ public class DefenceServiceImplTest {
     }
 
     /**
-     * Tests {@link DefenceService#defendRows(List, Piece[][], Piece)} when the opponent has "open left four" in some column.
+     * Tests {@link DefenceService#defendRows(Piece[][], Piece)} when the opponent has "open left four" in some column.
      */
     @Test
     public void testDefendColumnsWithOpenLeftFour() throws Exception {
@@ -117,7 +115,7 @@ public class DefenceServiceImplTest {
         board[4][columnWithOpenRightFour] = null; //place to defend
 
         //EXERCISE
-        final ArenaPosition defendAction = defenceService.defendColumns(null, board, Piece.ROUND);
+        final ArenaPosition defendAction = defenceService.defendColumns(board, Piece.ROUND);
 
         //VERIFY
         Assert.assertEquals(4, defendAction.getRow());

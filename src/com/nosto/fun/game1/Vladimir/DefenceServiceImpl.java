@@ -41,7 +41,7 @@ public class DefenceServiceImpl extends RandomServiceImpl implements DefenceServ
             Arrays.asList(Piece.ROUND, null, Piece.ROUND, Piece.ROUND, Piece.ROUND));
 
     @Override
-    public ArenaPosition defendRows(List<ArenaPosition> currentPlayerMoveList, Piece[][] board, Piece myPiece) {
+    public ArenaPosition defendRows(Piece[][] board, Piece myPiece) {
         int length = board.length;
         for (List<Piece> badCase : createLibraryOfBadCases(myPiece)) {
             for (int row = 0; row < length; row++) {
@@ -56,7 +56,7 @@ public class DefenceServiceImpl extends RandomServiceImpl implements DefenceServ
     }
 
     @Override
-    public ArenaPosition defendColumns(List<ArenaPosition> myMoveQueue, Piece[][] board, Piece myPiece) {
+    public ArenaPosition defendColumns(Piece[][] board, Piece myPiece) {
         int length = board.length;
         for (List<Piece> badCase : createLibraryOfBadCases(myPiece)) {
             for (int column = 0; column < length; column++) {
@@ -70,7 +70,7 @@ public class DefenceServiceImpl extends RandomServiceImpl implements DefenceServ
                 }
             }
         }
-        return findRandomFreePlace(board);
+        return null;
     }
 
     private Set<List<Piece>> createLibraryOfBadCases(Piece myPiece) {
@@ -100,7 +100,7 @@ public class DefenceServiceImpl extends RandomServiceImpl implements DefenceServ
             final List<Piece> subList = values.subList(i, toIndex);
             if (listToSearchFor.equals(subList)) {
                 final Integer freePlaceIndex = findFreePlace(subList);
-                    return new ArenaPosition(row, i + freePlaceIndex); //always defend from the right
+                return new ArenaPosition(row, i + freePlaceIndex); //always defend from the right
             }
         }
         return null;
