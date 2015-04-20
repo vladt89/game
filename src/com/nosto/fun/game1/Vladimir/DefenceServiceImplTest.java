@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * Test class for {@link DefenceServiceImpl}.
+ *
  * @author vladimir.tikhomirov
  */
 public class DefenceServiceImplTest {
@@ -79,32 +81,32 @@ public class DefenceServiceImplTest {
     }
 
     /**
-     * Tests {@link DefenceService#defendRows(Piece[][], Piece)} when the opponent has "open right four" in some column.
+     * Tests {@link DefenceService#defendColumns(Piece[][], Piece)} when the opponent has "open left four" in some column.
      */
     @Test
-    public void testDefendColumnsWithOpenRightFour() throws Exception {
+    public void testDefendColumnsWithOpenLeftFour() throws Exception {
         //SETUP SUT
-        final int columnWithOpenRightFour = 0;
+        final int columnWithOpenLeftFour = 0;
         Piece[][] board = new Piece[10][10];
-        board[5][columnWithOpenRightFour] = null; //place to defend
-        board[6][columnWithOpenRightFour] = Piece.CROSS;
-        board[7][columnWithOpenRightFour] = Piece.CROSS;
-        board[8][columnWithOpenRightFour] = Piece.CROSS;
-        board[9][columnWithOpenRightFour] = Piece.CROSS;
+        board[5][columnWithOpenLeftFour] = null; //place to defend
+        board[6][columnWithOpenLeftFour] = Piece.CROSS;
+        board[7][columnWithOpenLeftFour] = Piece.CROSS;
+        board[8][columnWithOpenLeftFour] = Piece.CROSS;
+        board[9][columnWithOpenLeftFour] = Piece.CROSS;
 
         //EXERCISE
         final ArenaPosition defendAction = defenceService.defendColumns(board, Piece.ROUND);
 
         //VERIFY
         Assert.assertEquals(5, defendAction.getRow());
-        Assert.assertEquals(columnWithOpenRightFour, defendAction.getColumn());
+        Assert.assertEquals(columnWithOpenLeftFour, defendAction.getColumn());
     }
 
     /**
      * Tests {@link DefenceService#defendRows(Piece[][], Piece)} when the opponent has "open left four" in some column.
      */
     @Test
-    public void testDefendColumnsWithOpenLeftFour() throws Exception {
+    public void testDefendColumnsWithOpenRightFour() throws Exception {
         //SETUP SUT
         final int columnWithOpenRightFour = 3;
         Piece[][] board = new Piece[10][10];
@@ -119,6 +121,50 @@ public class DefenceServiceImplTest {
 
         //VERIFY
         Assert.assertEquals(4, defendAction.getRow());
+        Assert.assertEquals(columnWithOpenRightFour, defendAction.getColumn());
+    }
+
+    /**
+     * Tests {@link DefenceService#defendRows(Piece[][], Piece)} when the opponent has "open middle right four" in some column.
+     */
+    @Test
+    public void testDefendColumnsWithOpenMiddleRightFour() throws Exception {
+        //SETUP SUT
+        final int columnWithOpenRightFour = 5;
+        Piece[][] board = new Piece[10][10];
+        board[0][columnWithOpenRightFour] = Piece.CROSS;
+        board[1][columnWithOpenRightFour] = Piece.CROSS;
+        board[2][columnWithOpenRightFour] = Piece.CROSS;
+        board[3][columnWithOpenRightFour] = null; //place to defend
+        board[4][columnWithOpenRightFour] = Piece.CROSS;
+
+        //EXERCISE
+        final ArenaPosition defendAction = defenceService.defendColumns(board, Piece.ROUND);
+
+        //VERIFY
+        Assert.assertEquals(3, defendAction.getRow());
+        Assert.assertEquals(columnWithOpenRightFour, defendAction.getColumn());
+    }
+
+    /**
+     * Tests {@link DefenceService#defendRows(Piece[][], Piece)} when the opponent has "open middle four" in some column.
+     */
+    @Test
+    public void testDefendColumnsWithOpenMiddleFour() throws Exception {
+        //SETUP SUT
+        final int columnWithOpenRightFour = 1;
+        Piece[][] board = new Piece[10][10];
+        board[0][columnWithOpenRightFour] = Piece.CROSS;
+        board[1][columnWithOpenRightFour] = Piece.CROSS;
+        board[2][columnWithOpenRightFour] = null; //place to defend
+        board[3][columnWithOpenRightFour] = Piece.CROSS;
+        board[4][columnWithOpenRightFour] = Piece.CROSS;
+
+        //EXERCISE
+        final ArenaPosition defendAction = defenceService.defendColumns(board, Piece.ROUND);
+
+        //VERIFY
+        Assert.assertEquals(2, defendAction.getRow());
         Assert.assertEquals(columnWithOpenRightFour, defendAction.getColumn());
     }
 }
