@@ -41,21 +41,25 @@ public class StrongOpponent implements Player, Cloneable {
         return this.name;
     }
 
+    /**
+     * Tries to find a good move. First check if there is a need for defending and then
+     * searches for good place to attack if there is no need to defend.
+     */
     public ArenaPosition move(Piece[][] board, ArenaPosition lastPosition) {
-        final ArenaPosition arenaPosition = defenceService.defendRows(board, myPiece);
-        if (arenaPosition != null) {
-            myMoveQueue.add(arenaPosition);
-            return arenaPosition;
+        final ArenaPosition defendRows = defenceService.defendRows(board, myPiece);
+        if (defendRows != null) {
+            myMoveQueue.add(defendRows);
+            return defendRows;
         }
-        final ArenaPosition arenaPosition1 = defenceService.defendColumns(board, myPiece);
-        if (arenaPosition1 != null) {
-            myMoveQueue.add(arenaPosition1);
-            return arenaPosition1;
+        final ArenaPosition defendColumns = defenceService.defendColumns(board, myPiece);
+        if (defendColumns != null) {
+            myMoveQueue.add(defendColumns);
+            return defendColumns;
         }
 
-        final ArenaPosition arenaPosition2 = strategyService.chooseWeakAttackingMove(myMoveQueue, board);
-        myMoveQueue.add(arenaPosition2);
-        return arenaPosition2;
+        final ArenaPosition attackingMove = strategyService.chooseWeakAttackingMove(myMoveQueue, board);
+        myMoveQueue.add(attackingMove);
+        return attackingMove;
     }
 
     public String toString() {
