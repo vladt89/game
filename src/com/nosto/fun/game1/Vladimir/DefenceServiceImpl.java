@@ -1,4 +1,4 @@
-package com.nosto.fun.game1.player;
+package com.nosto.fun.game1.Vladimir;
 
 import com.nosto.fun.game1.ArenaPosition;
 import com.nosto.fun.game1.Piece;

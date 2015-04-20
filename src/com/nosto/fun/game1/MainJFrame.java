@@ -6,8 +6,8 @@
 
 package com.nosto.fun.game1;
 
-import com.nosto.fun.game1.player.StrongOpponent;
-import com.nosto.fun.game1.player.WeakOpponent;
+import com.nosto.fun.game1.Vladimir.StrongOpponent;
+import com.nosto.fun.game1.Vladimir.WeakOpponent;
 
 import java.awt.BorderLayout;
 import java.util.HashMap;

@@ -88,7 +88,7 @@
 		depends="clean,package,unit-test"
 		description="build all">
 		<!--<junit>-->
-			<!--<test name="com.nosto.fun.game1.player.DefenceServiceImplTest"/>-->
+			<!--<test name="com.nosto.fun.game1.Vladimirir.DefenceServiceImplTest"/>-->
 		<!--</junit>-->
 	</target>
 	
@@ -112,7 +112,7 @@
 				<pathelement path="${java.class.path}"/>
 			</classpath>
 
-			<test name="com.nosto.fun.game1.player.DefenceServiceImplTest"
+			<test name="com.nosto.fun.game1.Vladimir.DefenceServiceImplTest"
 				  haltonfailure="no" outfile="result">
 				<formatter type="plain"/>
 				<formatter type="xml"/>

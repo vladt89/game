@@ -1,9 +1,9 @@
-Testsuite: com.nosto.fun.game1.player.DefenceServiceImplTest
+Testsuite: com.nosto.fun.game1.Vladimir.DefenceServiceImplTest
 Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0 sec
 
 	Caused an ERROR
-com.nosto.fun.game1.player.DefenceServiceImplTest
-java.lang.ClassNotFoundException: com.nosto.fun.game1.player.DefenceServiceImplTest
+com.nosto.fun.game1.Vladimir.DefenceServiceImplTest
+java.lang.ClassNotFoundException: com.nosto.fun.game1.Vladimir.DefenceServiceImplTest
 	at java.net.URLClassLoader$1.run(URLClassLoader.java:366)
 	at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
 	at java.security.AccessController.doPrivileged(Native Method)
